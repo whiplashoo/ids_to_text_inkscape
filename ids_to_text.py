@@ -57,6 +57,7 @@ class IdsToText(inkex.Effect):
         """
         Constructor.
         """
+        
         # Call the base class constructor.
         inkex.Effect.__init__(self)
 
