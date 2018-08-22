@@ -116,8 +116,6 @@ class IdsToText(inkex.Effect):
             self.group.set('y', str(ty))
             self.group.set('transform', 'rotate(%s, %s, %s)' % (angle, tx, ty))
 
-
-
 # Create effect instance and apply it.
 effect = IdsToText()
 effect.affect()
