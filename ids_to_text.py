@@ -82,6 +82,13 @@ class IdsToText(inkex.Effect):
         self.OptionParser.add_option('-a', '--angle', action = 'store',
           type = 'float', dest = 'angle', default = 0,
           help = 'Rotation angle')
+        self.OptionParser.add_option('-p', '--capitals', action = 'store',
+          type = 'inkbool', dest = 'capitals', default = False,
+          help = 'Capitalize')
+        self.OptionParser.add_option("", "--active-tab",
+          action="store", type="string",
+          dest="active_tab", default='title',
+          help="Active tab.")
 
     def effect(self):
         """
@@ -95,6 +102,7 @@ class IdsToText(inkex.Effect):
         replaced = self.options.replaced
         replacewith = self.options.replacewith
         angle = -int(self.options.angle)
+        capitals = self.options.capitals
 
         if len(self.selected) == 0:
             inkex.errormsg(_("Please select some paths first."))
@@ -111,6 +119,8 @@ class IdsToText(inkex.Effect):
                 'text-anchor': 'middle', 'font-size': fontsize,
                 'font-weight': fontweight, 'font-style': 'normal', 'font-family': font, 'fill': color}
             new.set('style', simplestyle.formatStyle(s))
+            if capitals:
+                id = id.upper()
             new.text = id.replace(replaced, replacewith)
             self.group.set('x', str(tx))
             self.group.set('y', str(ty))
