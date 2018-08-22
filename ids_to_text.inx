@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+  <_name>Test</_name>
+  <id>org.inkscape.render.ids_to_text</id>
+  <dependency type="executable" location="extensions">ids_to_text.py</dependency>
+  <dependency type="executable" location="extensions">inkex.py</dependency>
+
+  <param name="fontsize" type="int" min="1" max="1000" _gui-text="Font size (px):">10</param>
+  <param name="color" type="string" _gui-text="Color (in hex)">#000000</param>
+  <param name="font" type="string" _gui-text="Font">Roboto</param>
+  <param name="fontweight" appearance="minimal" _gui-text="Font Weight" type="optiongroup">
+    <!-- underscores indicate translatability -->
+    <_option value="light">Light</_option>
+    <_option value="normal">Normal</_option>
+    <_option value="italic">Italic</_option>
+    <_option value="medium">Medium</_option>
+    <_option value="bold">Bold</_option>
+  </param>
+  <param name="replaced" type="string" _gui-text="Text to replace:"></param>
+  <param name="replacewith" type="string" _gui-text="Replace with:"></param>
+  <param name="angle" type="float" min="-360" max="360" _gui-text="Angle (°):">0</param>
+  <effect>
+    <object-type>all</object-type>
+    <effects-menu>
+     <submenu _name="Examples"/>
+   </effects-menu>
+ </effect>
+ <script>
+  <command reldir="extensions" interpreter="python">ids_to_text.py</command>
+</script>
+</inkscape-extension>
