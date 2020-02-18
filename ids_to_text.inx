@@ -21,7 +21,7 @@
       <param name="replaced" type="string" _gui-text="Text to replace:"></param>
       <param name="replacewith" type="string" _gui-text="Replace with:"></param>
       <param name="angle" type="float" min="-360" max="360" _gui-text="Angle (°):">0</param>
-      <param name="capitals" type="boolean" _gui-text="Capitalize all text">false</param>
+      <param name="capitals" type="bool" _gui-text="Capitalize all text">false</param>
     </page>
     <page name="Usage2" _gui-text="Help">
       <_param name="use2" type="description" xml:space="preserve">Your help

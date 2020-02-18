@@ -61,33 +61,31 @@ class IdsToText(inkex.Effect):
         # Call the base class constructor.
         inkex.Effect.__init__(self)
 
-        self.OptionParser.add_option('-s', '--fontsize', action = 'store',
-          type = 'int', dest = 'fontsize', default = '10',
+        self.arg_parser.add_argument('-s', '--fontsize', 
+          type = int, dest = 'fontsize', default = '10',
           help = 'Font Size')
-        self.OptionParser.add_option('-c', '--color', action = 'store',
-          type = 'string', dest = 'color', default = '#000000',
+        self.arg_parser.add_argument('-c', '--color', 
+          type = str, dest = 'color', default = '#000000',
           help = 'Color')
-        self.OptionParser.add_option('-f', '--font', action = 'store',
-          type = 'string', dest = 'font', default = 'Roboto',
+        self.arg_parser.add_argument('-f', '--font', 
+          type = str, dest = 'font', default = 'Roboto',
           help = 'Font Family')
-        self.OptionParser.add_option('-w', '--fontweight', action = 'store',
-          type = 'string', dest = 'fontweight', default = 'bold',
+        self.arg_parser.add_argument('-w', '--fontweight', 
+          type = str, dest = 'fontweight', default = 'bold',
           help = 'Font Weight')
-        self.OptionParser.add_option('-r', '--replaced', action = 'store',
-          type = 'string', dest = 'replaced', default = '',
+        self.arg_parser.add_argument('-r', '--replaced', 
+          type = str, dest = 'replaced', default = '',
           help = 'Text to replace')
-        self.OptionParser.add_option('-q', '--replacewith', action = 'store',
-          type = 'string', dest = 'replacewith', default = '',
+        self.arg_parser.add_argument('-q', '--replacewith', 
+          type = str, dest = 'replacewith', default = '',
           help = 'Replace with this text')
-        self.OptionParser.add_option('-a', '--angle', action = 'store',
-          type = 'float', dest = 'angle', default = 0,
+        self.arg_parser.add_argument('-a', '--angle', 
+          type = float, dest = 'angle', default = 0,
           help = 'Rotation angle')
-        self.OptionParser.add_option('-p', '--capitals', action = 'store',
-          type = 'inkbool', dest = 'capitals', default = False,
+        self.arg_parser.add_argument('-p', '--capitals', 
+          type = inkex.Boolean, dest = 'capitals', default = False,
           help = 'Capitalize')
-        self.OptionParser.add_option("", "--active-tab",
-          action="store", type="string",
-          dest="active_tab", default='title',
+        self.arg_parser.add_argument("--active-tab",
           help="Active tab.")
 
     def effect(self):
@@ -104,11 +102,11 @@ class IdsToText(inkex.Effect):
         angle = -int(self.options.angle)
         capitals = self.options.capitals
 
-        if len(self.selected) == 0:
+        if len(self.svg.selected) == 0:
             inkex.errormsg(_("Please select some paths first."))
             exit()
 
-        for id, node in self.selected.iteritems():
+        for id, node in self.svg.selected.items():
             mat = simpletransform.composeParents(node, [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]])
             p = cubicsuperpath.parsePath(node.get('d'))
             simpletransform.applyTransformToPath(mat, p)
@@ -128,4 +126,4 @@ class IdsToText(inkex.Effect):
 
 # Create effect instance and apply it.
 effect = IdsToText()
-effect.affect()
+effect.run()
