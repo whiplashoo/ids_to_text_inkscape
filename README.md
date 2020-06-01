@@ -1,4 +1,6 @@
 # ids_to_text_inkscape
+*__Updated for Inkscape 1.0 !__ If you need the previous version, you can find it as a zip file (ids\_to\_text\_Inkscape\_0.92.zip) in the root of the repo*.
+
 A simple Inkscape extension that lets you **extract the ids from all selected paths and show them as `<text>` elements inside the paths.**
 
 
@@ -30,4 +32,4 @@ There are options available for styling and formatting the text:
 
 **Note: only works on `<path>` elements. If you have a `<circle>`, `<rectangle>`, `<text>`, etc., first use Object -> Object to Path to convert it.**
 
-For Inkscape v0.92 and before users, you should check the version provided in the [extension's Inkscape repository](https://inkscape.org/~whidev/%E2%98%85ids-to-text-elements "Inkscape repository").
+Also published on the [Inkscape extensions repository](https://inkscape.org/~whidev/%E2%98%85ids-to-text-elements "Inkscape extensions repository").
