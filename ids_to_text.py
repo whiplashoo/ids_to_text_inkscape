@@ -1,55 +1,8 @@
 #!/usr/bin/env python
 
-# We will use the inkex module with the predefined Effect base class.
 import inkex
-import simpletransform
-import cubicsuperpath
-import bezmisc
-# The simplestyle module provides functions for style parsing.
-import simplestyle
-
-# third party
-try:
-    import numpy
-except:
-    inkex.errormsg(_("Failed to import the numpy modules. These modules are required by this extension. Please install them and try again.  On a Debian-like system this can be done with the command, sudo apt-get install python-numpy."))
-    exit()
-
-mat_area   = numpy.matrix([[  0,  2,  1, -3],[ -2,  0,  1,  1],[ -1, -1,  0,  2],[  3, -1, -2,  0]])
-mat_cofm_0 = numpy.matrix([[  0, 35, 10,-45],[-35,  0, 12, 23],[-10,-12,  0, 22],[ 45,-23,-22,  0]])
-mat_cofm_1 = numpy.matrix([[  0, 15,  3,-18],[-15,  0,  9,  6],[ -3, -9,  0, 12],[ 18, -6,-12,  0]])
-mat_cofm_2 = numpy.matrix([[  0, 12,  6,-18],[-12,  0,  9,  3],[ -6, -9,  0, 15],[ 18, -3,-15,  0]])
-mat_cofm_3 = numpy.matrix([[  0, 22, 23,-45],[-22,  0, 12, 10],[-23,-12,  0, 35],[ 45,-10,-35,  0]])
-
-def csparea(csp):
-    area = 0.0
-    for sp in csp:
-        if len(sp) < 2: continue
-        for i in range(len(sp)):            # calculate polygon area
-            area += 0.5*sp[i-1][1][0]*(sp[i][1][1] - sp[i-2][1][1])
-        for i in range(1, len(sp)):         # add contribution from cubic Bezier
-            vec_x = numpy.matrix([sp[i-1][1][0], sp[i-1][2][0], sp[i][0][0], sp[i][1][0]])
-            vec_y = numpy.matrix([sp[i-1][1][1], sp[i-1][2][1], sp[i][0][1], sp[i][1][1]])
-            area += 0.15*(vec_x*mat_area*vec_y.T)[0,0]
-    return -area                            # require positive area for CCW
-def cspcofm(csp):
-    area = csparea(csp)
-    xc = 0.0
-    yc = 0.0
-    if abs(area) < 1.e-8:
-        inkex.errormsg(_("Area is zero, cannot calculate Center of Mass"))
-        return 0, 0
-    for sp in csp:
-        for i in range(len(sp)):            # calculate polygon moment
-            xc += sp[i-1][1][1]*(sp[i-2][1][0] - sp[i][1][0])*(sp[i-2][1][0] + sp[i-1][1][0] + sp[i][1][0])/6
-            yc += sp[i-1][1][0]*(sp[i][1][1] - sp[i-2][1][1])*(sp[i-2][1][1] + sp[i-1][1][1] + sp[i][1][1])/6
-        for i in range(1, len(sp)):         # add contribution from cubic Bezier
-            vec_x = numpy.matrix([sp[i-1][1][0], sp[i-1][2][0], sp[i][0][0], sp[i][1][0]])
-            vec_y = numpy.matrix([sp[i-1][1][1], sp[i-1][2][1], sp[i][0][1], sp[i][1][1]])
-            vec_t = numpy.matrix([(vec_x*mat_cofm_0*vec_y.T)[0,0], (vec_x*mat_cofm_1*vec_y.T)[0,0], (vec_x*mat_cofm_2*vec_y.T)[0,0], (vec_x*mat_cofm_3*vec_y.T)[0,0]])
-            xc += (vec_x*vec_t.T)[0,0]/280
-            yc += (vec_y*vec_t.T)[0,0]/280
-    return -xc/area, -yc/area
+from inkex import TextElement, TextPath, Tspan
+from inkex.bezier import csparea, cspcofm, csplength
 
 class IdsToText(inkex.Effect):
 
@@ -57,7 +10,6 @@ class IdsToText(inkex.Effect):
         """
         Constructor.
         """
-        
         # Call the base class constructor.
         inkex.Effect.__init__(self)
 
@@ -107,22 +59,28 @@ class IdsToText(inkex.Effect):
             exit()
 
         for id, node in self.svg.selected.items():
-            mat = simpletransform.composeParents(node, [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]])
-            p = cubicsuperpath.parsePath(node.get('d'))
-            simpletransform.applyTransformToPath(mat, p)
-            self.group = inkex.etree.SubElement(node.getparent(),inkex.addNS('text','svg'))
-            tx, ty = cspcofm(p)
-            new = inkex.etree.SubElement(self.group, inkex.addNS('tspan','svg'), {inkex.addNS('role','sodipodi'): 'line'})
+            self.group = node.getparent().add(TextElement())
+            csp = node.path.transform(node.composed_transform()).to_superpath()
+            bbox = node.bounding_box()
+            tx, ty = bbox.center
+            anchor = 'middle'
+
+            node = self.group
+            new = node.add(Tspan())
+            new.set('sodipodi:role', 'line')
             s = {'text-align': 'center', 'vertical-align': 'bottom',
                 'text-anchor': 'middle', 'font-size': fontsize,
                 'font-weight': fontweight, 'font-style': 'normal', 'font-family': font, 'fill': color}
-            new.set('style', simplestyle.formatStyle(s))
+            new.set('style', str(inkex.Style(s)))
+            new.set('dy', '0')
+
             if capitals:
                 id = id.upper()
+
             new.text = id.replace(replaced, replacewith)
-            self.group.set('x', str(tx))
-            self.group.set('y', str(ty))
-            self.group.set('transform', 'rotate(%s, %s, %s)' % (angle, tx, ty))
+            node.set('x', str(tx))
+            node.set('y', str(ty))
+            node.set('transform', 'rotate(%s, %s, %s)' % (angle, tx, ty))            
 
 # Create effect instance and apply it.
 effect = IdsToText()
