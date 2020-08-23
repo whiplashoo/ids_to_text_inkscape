@@ -1,54 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <inkscape-extension xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
-  <_name>Ids to Text</_name>
-  <id>org.inkscape.render.ids_to_text</id>
-  <dependency type="executable" location="extensions">ids_to_text.py</dependency>
-  <dependency type="executable" location="extensions">inkex.py</dependency>
-
-  <param name='active-tab' type="notebook">
-    <page name="title" _gui-text="Extract ids as text elements">
-      <param name="fontsize" type="int" min="1" max="1000" _gui-text="Font size (px):">10</param>
-      <param name="color" type="string" _gui-text="Color (in hex)">#000000</param>
-      <param name="font" type="string" _gui-text="Font">Roboto</param>
-      <param name="fontweight" appearance="minimal" _gui-text="Font Weight" type="optiongroup">
-        <!-- underscores indicate translatability -->
-        <_option value="light">Light</_option>
-        <_option value="normal">Normal</_option>
-        <_option value="italic">Italic</_option>
-        <_option value="medium">Medium</_option>
-        <_option value="bold">Bold</_option>
-      </param>
-      <param name="replaced" type="string" _gui-text="Text to replace:"></param>
-      <param name="replacewith" type="string" _gui-text="Replace with:"></param>
-      <param name="angle" type="float" min="-360" max="360" _gui-text="Angle (°):">0</param>
-      <param name="capitals" type="bool" _gui-text="Capitalize all text">false</param>
-    </page>
-    <page name="Usage2" _gui-text="Help">
-      <_param name="use2" type="description" xml:space="preserve">Your help
-       A simple Inkscape extension that lets you extract the ids from all selected paths and show them as elements inside the paths.
+    <name>Ids to Text</name>
+    <id>org.inkscape.render.ids_to_text</id>
+    <param name="fontsize" type="int" min="1" max="1000" gui-text="Font size (px):">10</param>
+    <param name="color" type="color" appearance="colorbutton" gui-text="Color (in hex)">255</param>
+    <param name="font" type="string" gui-text="Font">Roboto</param>
+    <param name="fontweight" appearance="combo" gui-text="Font Weight" type="optiongroup">
+        <option value="light">Light</option>
+        <option value="normal">Normal</option>
+        <option value="italic">Italic</option>
+        <option value="medium">Medium</option>
+        <option value="bold">Bold</option>
+    </param>
+    <param name="replaced" type="string" gui-text="Text to replace:" />
+    <param name="replacewith" type="string" gui-text="Replace with:" />
+    <param name="angle" type="float" min="-360" max="360" gui-text="Angle (°):">0</param>
+    <param name="capitals" type="bool" gui-text="Capitalize all text">false</param>
+    <label appearance="header">Help</label>
+    <label>A simple Inkscape extension that lets you extract the ids from all selected paths and show them as elements inside the paths.
        Useful for when you want to have all paths' ids shown on the SVG document as text nodes.
-
-       Examples and more info: https://github.com/whiplashoo/ids_to_text_inkscape
-
-
-
-
-
-
-
-
-
-
-      </_param>
-    </page>
-  </param>
-  <effect>
-    <object-type>all</object-type>
-    <effects-menu>
-     <submenu _name="Text"/>
-   </effects-menu>
- </effect>
- <script>
-  <command reldir="extensions" interpreter="python">ids_to_text.py</command>
-</script>
+       Examples and more info:</label>
+    <label appearance="url">https://github.com/whiplashoo/ids_to_text_inkscape</label>
+    <effect>
+        <object-type>all</object-type>
+        <effects-menu>
+            <submenu name="Text" />
+        </effects-menu>
+    </effect>
+    <script>
+        <command location="inx" interpreter="python">ids_to_text.py</command>
+    </script>
 </inkscape-extension>
