@@ -1,64 +1,29 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import inkex
 from inkex import TextElement, TextPath, Tspan
 from inkex.bezier import csparea, cspcofm, csplength
+from inkex.colors import Color
 
 class IdsToText(inkex.Effect):
-
     def __init__(self):
-        """
-        Constructor.
-        """
-        # Call the base class constructor.
         inkex.Effect.__init__(self)
-
-        self.arg_parser.add_argument('-s', '--fontsize', 
-          type = int, dest = 'fontsize', default = '10',
-          help = 'Font Size')
-        self.arg_parser.add_argument('-c', '--color', 
-          type = str, dest = 'color', default = '#000000',
-          help = 'Color')
-        self.arg_parser.add_argument('-f', '--font', 
-          type = str, dest = 'font', default = 'Roboto',
-          help = 'Font Family')
-        self.arg_parser.add_argument('-w', '--fontweight', 
-          type = str, dest = 'fontweight', default = 'bold',
-          help = 'Font Weight')
-        self.arg_parser.add_argument('-r', '--replaced', 
-          type = str, dest = 'replaced', default = '',
-          help = 'Text to replace')
-        self.arg_parser.add_argument('-q', '--replacewith', 
-          type = str, dest = 'replacewith', default = '',
-          help = 'Replace with this text')
-        self.arg_parser.add_argument('-a', '--angle', 
-          type = float, dest = 'angle', default = 0,
-          help = 'Rotation angle')
-        self.arg_parser.add_argument('-p', '--capitals', 
-          type = inkex.Boolean, dest = 'capitals', default = False,
-          help = 'Capitalize')
-        self.arg_parser.add_argument("--active-tab",
-          help="Active tab.")
+        self.arg_parser.add_argument('--fontsize', type = int, default = '10', help = 'Font Size')
+        self.arg_parser.add_argument('--color', type=Color, default = 255, help = 'Color')
+        self.arg_parser.add_argument('--font', default = 'Roboto', help = 'Font Family')
+        self.arg_parser.add_argument('--fontweight', default = 'bold', help = 'Font Weight')
+        self.arg_parser.add_argument('--replaced', default = '', help = 'Text to replace')
+        self.arg_parser.add_argument('--replacewith', default = '', help = 'Replace with this text')
+        self.arg_parser.add_argument('--angle', type = float, dest = 'angle', default = 0, help = 'Rotation angle')
+        self.arg_parser.add_argument('--capitals', type = inkex.Boolean, default = False, help = 'Capitalize')
 
     def effect(self):
-        """
-        Effect behaviour.
-        """
-        # Get script's "--what" option value.
-        fontsize = str(self.options.fontsize) + 'px'
-        color = self.options.color
-        font = self.options.font
-        fontweight = self.options.fontweight
-        replaced = self.options.replaced
-        replacewith = self.options.replacewith
-        angle = -int(self.options.angle)
-        capitals = self.options.capitals
-
         if len(self.svg.selected) == 0:
-            inkex.errormsg(_("Please select some paths first."))
+            inkex.errormsg("Please select some paths first.")
             exit()
 
         for id, node in self.svg.selected.items():
+            id = node.get('id')
             self.group = node.getparent().add(TextElement())
             csp = node.path.transform(node.composed_transform()).to_superpath()
             bbox = node.bounding_box()
@@ -69,19 +34,17 @@ class IdsToText(inkex.Effect):
             new = node.add(Tspan())
             new.set('sodipodi:role', 'line')
             s = {'text-align': 'center', 'vertical-align': 'bottom',
-                'text-anchor': 'middle', 'font-size': fontsize,
-                'font-weight': fontweight, 'font-style': 'normal', 'font-family': font, 'fill': color}
+                'text-anchor': 'middle', 'font-size': str(self.options.fontsize) + 'px',
+                'font-weight': self.options.fontweight, 'font-style': 'normal', 'font-family': self.options.font, 'fill': str(self.options.color)}
             new.set('style', str(inkex.Style(s)))
             new.set('dy', '0')
 
-            if capitals:
+            if self.options.capitals:
                 id = id.upper()
 
-            new.text = id.replace(replaced, replacewith)
+            new.text = id.replace(self.options.replaced, self.options.replacewith)
             node.set('x', str(tx))
             node.set('y', str(ty))
-            node.set('transform', 'rotate(%s, %s, %s)' % (angle, tx, ty))            
+            node.set('transform', 'rotate(%s, %s, %s)' % (-int(self.options.angle), tx, ty))            
 
-# Create effect instance and apply it.
-effect = IdsToText()
-effect.run()
+IdsToText().run()
