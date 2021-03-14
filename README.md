@@ -27,6 +27,9 @@ There are options available for styling and formatting the text:
 * **Text to replace** (a simple replace function to remove characters you may not want from the ids during the extraction)
 * **Angle** (controls the rotation of the generated `<text>` nodes, in degrees)
 * **Capitalize** (option to capitalize all text)
+* **Match Regular Expression** (matches the id of each path to a regular expression and uses that as text on the path, e.g. if the id is "Province_055" and this field "\d+", the text on the path will be just "055")
+
+
 
 ![UI](https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/example3.PNG)
 
