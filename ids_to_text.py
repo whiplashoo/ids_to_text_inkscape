@@ -62,9 +62,10 @@ class IdsToText(inkex.Effect):
                     id = matches[0]
 
             if self.options.replaced != '':
-                tspan_element.text = id.replace(
+                id = id.replace(
                     self.options.replaced, self.options.replacewith)
 
+            tspan_element.text = id
             tspan_element.set('id', id + "_tspan")
             text_element.set('id', id + "_text")
             text_element.set('x', str(tx))
