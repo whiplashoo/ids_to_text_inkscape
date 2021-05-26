@@ -6,6 +6,8 @@ A simple Inkscape extension that lets you **extract the ids from all selected pa
 
 Useful for when you want to have all paths' ids shown on the SVG document as `<text>` nodes.
 
+Available under the Extensions > Text menu.
+
 **Example:**
 
 Get the ids (names) of all the countries on the Africa map and show them on the map as labels.
@@ -33,6 +35,6 @@ There are options available for styling and formatting the text:
 
 ![UI](https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/example3.PNG)
 
-**Note: only works on `<path>` elements. If you have a `<circle>`, `<rectangle>`, `<text>`, etc., first use Object -> Object to Path to convert it.**
+**Note: only works on `<path>` elements. If you have a `<circle>`, `<rectangle>`, `<text>`, etc., first use Object > Object to Path to convert it.**
 
 Also published on the [Inkscape extensions repository](https://inkscape.org/~whidev/%E2%98%85ids-to-text-elements "Inkscape extensions repository").

@@ -2,9 +2,6 @@
 import re
 import inkex
 
-#  change deprecated APIs for 1.1
-#  add option to make other attributes <text> nodes, like fill or stroke
-# option to scale text according to path area.
 
 class IdsToText(inkex.Effect):
     def __init__(self):
