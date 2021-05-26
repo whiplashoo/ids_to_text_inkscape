@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 import re
 import inkex
-from inkex.colors import Color
 
-#  I'd change this: https://github.com/whiplashoo/ids_to_text_inkscape/blob/9423830c0039ab33c4d4d9e82a541bbc861c70be/ids_to_text.py#L35 and use the filter/filter_nonzero function: https://inkscape.gitlab.io/extensions/documentation/source/inkex.elements._selected.html?highlight=selection#inkex.elements._selected.ElementList.filter. Otherwise, users will get an error message if they select non-path elements by accident.
 #  change deprecated APIs for 1.1
 #  add option to make other attributes <text> nodes, like fill or stroke
 # option to scale text according to path area.
-
 
 class IdsToText(inkex.Effect):
     def __init__(self):
@@ -15,7 +12,7 @@ class IdsToText(inkex.Effect):
         self.arg_parser.add_argument(
             '--fontsize', type=int, default='10', help='Font Size')
         self.arg_parser.add_argument(
-            '--color', type=Color, default=255, help='Color')
+            '--color', type=inkex.Color, default=255, help='Color')
         self.arg_parser.add_argument(
             '--font', default='Roboto', help='Font Family')
         self.arg_parser.add_argument(
@@ -37,7 +34,7 @@ class IdsToText(inkex.Effect):
             inkex.errormsg("Please select some paths first.")
             exit()
 
-        for id, node in self.svg.selected.items():
+        for id, node in self.svg.selection.filter(inkex.PathElement).items():
             id = node.get('id')
             node.path.transform(node.composed_transform()).to_superpath()
             bbox = node.bounding_box()
