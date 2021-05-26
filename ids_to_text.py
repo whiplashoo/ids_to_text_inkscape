@@ -3,6 +3,11 @@ import re
 import inkex
 from inkex.colors import Color
 
+#  I'd change this: https://github.com/whiplashoo/ids_to_text_inkscape/blob/9423830c0039ab33c4d4d9e82a541bbc861c70be/ids_to_text.py#L35 and use the filter/filter_nonzero function: https://inkscape.gitlab.io/extensions/documentation/source/inkex.elements._selected.html?highlight=selection#inkex.elements._selected.ElementList.filter. Otherwise, users will get an error message if they select non-path elements by accident.
+#  change deprecated APIs for 1.1
+#  add option to make other attributes <text> nodes, like fill or stroke
+# option to scale text according to path area.
+
 
 class IdsToText(inkex.Effect):
     def __init__(self):
@@ -74,4 +79,5 @@ class IdsToText(inkex.Effect):
                              (-int(self.options.angle), tx, ty))
 
 
-IdsToText().run()
+if __name__ == '__main__':
+    IdsToText().run()
