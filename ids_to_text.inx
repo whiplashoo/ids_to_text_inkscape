@@ -2,6 +2,14 @@
 <inkscape-extension xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
     <name>Ids to Text</name>
     <id>org.inkscape.render.ids_to_text</id>
+    <param name="path_attribute" appearance="combo" gui-text="Path attribute to show:" type="optiongroup">
+        <option value="id">Id</option>
+        <option value="label">Label</option>
+        <option value="fill">Fill color</option>
+        <option value="stroke">Stroke color</option>
+        <option value="width">Width</option>
+        <option value="height">Height</option>
+    </param>
     <param name="fontsize" type="int" min="1" max="1000" gui-text="Font size (px):">10</param>
     <param name="color" type="color" appearance="colorbutton" gui-text="Text color:">255</param>
     <param name="font" type="string" gui-text="Font:">Roboto</param>
@@ -18,7 +26,7 @@
     <param name="angle" type="float" min="-360" max="360" gui-text="Angle (°):">0</param>
     <param name="capitals" type="bool" gui-text="Capitalize all text">false</param>
     <label appearance="header">Help</label>
-    <label>Lets you extract the ids from all selected paths and show them as text elements inside the paths.
+    <label>Lets you extract the ids (or other attributes) from all selected paths and show them as text elements inside the paths.
        Examples and more info:</label>
     <label appearance="url">https://github.com/whiplashoo/ids_to_text_inkscape</label>
     <effect>

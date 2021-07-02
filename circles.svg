@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1" id="svg12" sodipodi:docname="circles1.svg" width="343.77954" height="303.77951" inkscape:version="1.1 (c68e22c387, 2021-05-23)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <defs id="defs16" />
+  <sodipodi:namedview id="namedview14" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="1.0866667" inkscape:cx="-28.527607" inkscape:cy="239.72393" inkscape:window-width="1920" inkscape:window-height="1001" inkscape:window-x="-9" inkscape:window-y="-9" inkscape:window-maximized="1" inkscape:current-layer="svg12" />
+  <path id="circle4" style="fill:#729fcf;fill-opacity:0.7;stroke:#000000" d="m 271.88977,101.88976 a 100,100 0 0 1 -100,100 100,100 0 0 1 -99.999999,-100 100,100 0 0 1 99.999999,-99.9999971 100,100 0 0 1 100,99.9999971 z" />
+  <path id="circle6" style="fill:#ef2929;fill-opacity:0.7;stroke:#000000" d="m 341.88979,201.88976 a 100,100 0 0 1 -100,100 100,100 0 0 1 -100,-100 100,100 0 0 1 100,-100 100,100 0 0 1 100,100 z" />
+  <path id="circle8" style="fill:#edd400;fill-opacity:0.7;stroke:#000000" d="m 201.88976,201.88976 a 100,100 0 0 1 -100,100 100,100 0 0 1 -99.9999971,-100 100,100 0 0 1 99.9999971,-100 100,100 0 0 1 100,100 z" />
+</svg>
