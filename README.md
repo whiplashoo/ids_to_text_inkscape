@@ -7,36 +7,42 @@ Useful for when you want to have all paths' `id` shown on the SVG document as `<
 
 You can also use it for other path attributes, like `label`, `fill`, `stroke`, `width`, `height`.
 
-Available under the Extensions > Text menu.
+Available under the `Extensions > Text` menu.
 
-![UI](https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/extension_window.jpg)
+<p align="center">
+<img width="50%" src="https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/extension_window.jpg"/>
+</p>
+  
+**Note: only works on `<path>` elements. If you have a `<circle>`, `<rectangle>`, `<text>`, etc., first use Object > Object to Path to convert it.**
 
-### Examples:
+## Examples:
 
-Get the ids (names) of all the countries on the Africa map and show them on the map as labels.
+* ### Get the ids (names) of all the countries on the Africa map and show them on the map as labels.
 
+<p align="center">
+<img width="80%" src="https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/example_africa_1.png"/>
+</p> 
+<p align="center">
+<img width="80%" src="https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/example_africa_2.png"/>
+</p>
 
-![Before](https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/example_africa_1.png)
+* ### Get the fill color for all circles and show it as a `<text>` element on top of them.
 
+<p align="center">
+<img width="80%" src="https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/example_circles_1.jpg"/>
+</p> 
+<p align="center">
+<img width="80%" src="https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/example_circles_2.jpg"/>
+</p>
 
-![After](https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/example_africa_2.png)
+* ### Get the width attribute for all planets and show it as a `<text>` element on top of them.
 
-Get the fill color for all circles and show it as a `<text>` element on top of them.
-
-
-![Before](https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/example_circles_1.jpg)
-
-
-![After](https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/example_circles_2.jpg)
-
-Get the width attribute for all planets and show it as a `<text>` element on top of them.
-
-
-![Before](https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/example_heliocentric_1.jpg)
-
-
-![After](https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/example_heliocentric_2.jpg)
-
+<p align="center">
+<img width="80%" src="https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/example_heliocentric_1.jpg"/>
+</p> 
+<p align="center">
+<img width="80%" src="https://github.com/whiplashoo/ids_to_text_inkscape/blob/master/examples/example_heliocentric_2.jpg"/>
+</p>
 
 Options for styling and formatting the text:
 
@@ -51,8 +57,5 @@ Options for further editing the extracted text (only used with `id` and `label` 
 * **Match Regular Expression** (matches the extracted text of each path to a regular expression and uses the result on the path, e.g. if the id is `Province_055` and this field `\d+`, the text on the path will be just `055`)
 * **Capitalize** (capitalize all text)
 
-
-
-**Note: only works on `<path>` elements. If you have a `<circle>`, `<rectangle>`, `<text>`, etc., first use Object > Object to Path to convert it.**
 
 Also published on the [Inkscape extensions repository](https://inkscape.org/~whidev/%E2%98%85ids-to-text-elements "Inkscape extensions repository").
