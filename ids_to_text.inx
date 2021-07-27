@@ -25,6 +25,7 @@
     <param name="matchre" type="string" gui-text="Match regular expression:" />
     <param name="angle" type="float" min="-360" max="360" gui-text="Angle (°):">0</param>
     <param name="capitals" type="bool" gui-text="Capitalize all text">false</param>
+    <param name="group" type="bool" gui-text="Group paths with the generated text elements">false</param>
     <label appearance="header">Help</label>
     <label>Lets you extract the ids (or other attributes) from all selected paths and show them as text elements inside the paths.
        Examples and more info:</label>

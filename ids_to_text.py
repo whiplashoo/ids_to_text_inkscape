@@ -27,6 +27,8 @@ class IdsToText(inkex.Effect):
             help='Rotation angle')
         self.arg_parser.add_argument(
             '--capitals', type=inkex.Boolean, default=False, help='Capitalize')
+        self.arg_parser.add_argument(
+            '--group', type=inkex.Boolean, default=False, help='Group paths with generated text elements')
 
     def extract_path_attribute(self, attr, node):
         ret = ''
@@ -63,7 +65,14 @@ class IdsToText(inkex.Effect):
             bbox = node.bounding_box()
             tx, ty = bbox.center
 
-            text_element = node.getparent().add(inkex.TextElement())
+            if self.options.group:
+                group_element = node.getparent().add(inkex.Group())
+                group_element.add(node)
+                group_element.set('id', node.get('id') + "_group")
+                text_element = group_element.add(inkex.TextElement())
+            else:
+                text_element = node.getparent().add(inkex.TextElement())
+
             tspan_element = text_element.add(inkex.Tspan())
             tspan_element.set('sodipodi:role', 'line')
             styles = {'text-align': 'center',

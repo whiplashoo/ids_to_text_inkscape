@@ -56,6 +56,7 @@ Options for further editing the extracted text (only used with `id` and `label` 
 * **Text to replace** (a simple replace function to remove characters you may not want from the text)
 * **Match Regular Expression** (matches the extracted text of each path to a regular expression and uses the result on the path, e.g. if the id is `Province_055` and this field `\d+`, the text on the path will be just `055`)
 * **Capitalize** (capitalize all text)
+* **Group paths with the generated text elements ** (if checked, also group (`<g>`) the path with its text label)
 
 
 Also published on the [Inkscape extensions repository](https://inkscape.org/~whidev/%E2%98%85ids-to-text-elements "Inkscape extensions repository").
